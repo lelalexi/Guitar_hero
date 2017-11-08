@@ -24,7 +24,7 @@ pygame.init()
 BACKGROUND = pygame.display.set_mode((400,600), 0, 32)
 pygame.display.set_caption('Guitar Hero')
 
-FPS= 4 #FRAMES PER SECOND
+FPS= 15 #FRAMES PER SECOND
 fpsClock = pygame.time.Clock()
 
 #set up the Colors
@@ -42,7 +42,7 @@ POSINIRED = 	(80,0)
 POSINIBLUE =	(140,0)
 
 #aca se cargan las notas de una cancion
-notas = ((True,True,True),(False,False,False),(False,False,False),(True,True,False),(False,False,False),(False,True,False),(False,False,False),(False,False,False),(True,False,True))
+notas = ((True,True,True),(False,False,False),(False,False,False),(True,True,False),(False,False,False),(False,False,False),(False,False,False),(True,False,True),(False,False,False))
 ritmo = 0	#indica que notas hay que cargar en el juego
 notasSonando = []
 
@@ -79,13 +79,16 @@ while True:
 	if ritmo == len(notas):
 		ritmo = 0
 
-
+	aEliminar=[]
 	#LOGICA DE MOVIMIENTO
 	for nota in notasSonando:
 		nota.posy += 20
-		if nota.posy >= 620:
-			nota.posy = 0
+		if nota.posy >= 600:
+			aEliminar.append(nota)
 		pygame.draw.circle(BACKGROUND,nota.color, (nota.posx,nota.posy), 20, 0)
+
+	for nota in aEliminar:
+		notasSonando.remove(nota)
 
 	pygame.draw.circle(BACKGROUND,GREEN, (20,580), 20, 4)
 	pygame.draw.circle(BACKGROUND,RED, (80,580), 20, 4)
